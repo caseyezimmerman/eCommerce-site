@@ -5,8 +5,23 @@ import 'slick-carousel/slick/slick-theme.css'
 
 class SlickSlider extends Component{
 	render(){
+		const settings = {
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true
+		}
 		return(
-			<h1>Slider should be here</h1>
+			<div className="container">
+				<Slider {...settings}>
+					<div className="slick-image"><img src="/slider-images/ferrari.jpg" /></div>
+					<div className="slick-image"><img src="/slider-images/lamb.jpg" /></div>
+					<div className="slick-image"><img src="/slider-images/train1.jpg" /></div>
+					<div className="slick-image"><img src="/slider-images/schooner.jpg" /></div>
+				</Slider>
+			</div>
 		)
 	}
 }

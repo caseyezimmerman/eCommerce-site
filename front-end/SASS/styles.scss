@@ -5,3 +5,26 @@ body{
 .list > li{
 	padding-right:20px;
 }
+
+.slick-slider img{
+	width:100%;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.primary-nav, .subnav{
+	height:60px;
+}
+
+a, input{
+	display: inline;
+}
+
+.nav-extended li{
+	color:black;
+	margin:0 10px;
+}
+.nav-wrapper li{
+	color:black;
+}
