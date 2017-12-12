@@ -1,0 +1,52 @@
+What is the Provider?
+--TAKES THE STATE FROM THE STOE AND PASSSES IT DOWN OT COMPONENTS
+--CONNECTION BETWEEN REACT AND REDUX
+--COMES FROM REACT-REDUX
+--wraps around our whole application
+--a component
+-sends props down to its children components (App)
+
+What does Export Connect do?
+--exports a component that knows about redux 
+-- makes redux state available as props to this component
+-- makes redux actions available as props to this component 
+
+How do Store and Provider go together?
+--pass the store to the provider component
+- react portion = Provider
+- redux portion = Store
+
+Reducer vs. Container vs. Component vs Actions... what's the difference?
+- reducer calculates state and returns it
+- container is a component that knows about redux state/dispatcher
+- component is a single DOM element returned and put into the virtual DOM 
+- component is presentation. an easy way to put HTML into the DOM
+
+Why is constuctor sometimes there and sometimes not?
+- if we need to set state
+- methods that require bind
+- IF WE NEED TO USE THE WORD 'THIS', we have to have a constructor
+- if required, we also have to use super();
+
+How does extends work?
+- extends gets all the methods and instance varables from a super/parent class
+- we want stuff other people have written (Component by React), so we extend it
+
+What is webpack?
+- Magic
+- developer tool that allows you to bundle all JS assets into a single file
+- Transpiles(JSX via Babel)
+-Has a development server (webpaack dev server)
+- Integrates the linter 
+- and other cool stuff
+
+Is Redux state different from React state?
+- Yes.
+- Redux state is the application state
+- React state is local to the component
+- Redux state is informed by the store --> which is informed by the root reducer
+
+What is the point of middleware?
+
+
+What is x()()()?
