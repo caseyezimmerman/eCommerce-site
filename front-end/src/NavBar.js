@@ -6,8 +6,8 @@ class NavBar extends Component{
 	}
 	render(){
 		return(
-			 <nav class="nav-extended teal lighten-4">
-			    <div class="nav-wrapper">
+			 <nav class="nav-extended">
+			    <div class="nav-wrapper teal lighten-4">
 			      <a href="#" class="brand-logo"></a>
 			      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			      	<ul id="nav-mobile" class="hide-on-med-and-down">
@@ -27,7 +27,7 @@ class NavBar extends Component{
 			        	<li class="right tab"><a href="#test1"><input type="text" placeholder="Search for an item" /></a></li>
 			     	</ul>
 			    </div>
-			    <div class="nav-content">
+			    <div class="nav-content teal lighten-5">
 			 		
 			     	<ul class="tabs tabs-transparent">
 			     		<li>Classic models logo</li>
