@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component{
 	constructor(){
@@ -28,11 +29,10 @@ class NavBar extends Component{
 			     	</ul>
 			    </div>
 			    <div class="nav-content teal lighten-3">
-			 		
-			     	<ul class="tabs tabs-transparent">
+				     	<ul class="tabs tabs-transparent">
 			     		<li>Classic models logo</li>
 			     		<li class="right">(0) items in cart | ($0.00)</li>
-			      		<li class="right">Sign in or Create account:</li>	                				       			  
+			      		<li class="right"><Link to="/register">Sign in or Create account:</Link></li>	                				       			  
 			      	</ul>
 			    </div>
 			    
