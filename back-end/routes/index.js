@@ -7,6 +7,12 @@ var connection = mysql.createConnection(config);
 connection.connect();
 
 router.post('/register',(req,res,next)=>{
+	console.log(req.body)
+	// going to insert data into 2 tables
+	// users and customers
+	// FIRST check to see if the user is in the database...
+	// if they arent, put data into customers table first because we need cId in udera from customer table
+	
 	res.json(req.body)
 	var name = req.body.name
 	var phone = req.body.phone

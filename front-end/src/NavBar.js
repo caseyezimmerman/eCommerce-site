@@ -33,7 +33,8 @@ class NavBar extends Component{
 				     	<ul className="tabs tabs-transparent">
 			     		<li><Icon>pets</Icon></li>
 			     		<li className="right">(0) items in cart | ($0.00)</li>
-			      		<li className="right"><Link to="/register">Sign in or Create account:</Link></li>	                				       			  
+			      		<li className="right"><Link to="/login">Sign in</Link></li>
+			      		<li className="right"><Link to="/register">Create account</Link></li>	                				       			  
 			      	</ul>
 			    </div>
 			    

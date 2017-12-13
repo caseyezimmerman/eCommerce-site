@@ -16,10 +16,10 @@ class Register extends Component{
 
 	handleSubmit(event){
 		event.preventDefault()
-		const name = document.getElementById('name').value
-		const phone = document.getElementById('phone').value
-		const email = document.getElementById('email').value
-		const password = document.getElementById('password').value
+		const name = event.target[0].value
+		const phone = event.target[1].value
+		const email = event.target[2].value
+		const password = event.target[3].value
 		this.props.authAction(name, phone, email, password)
 		
 	}
@@ -36,6 +36,7 @@ class Register extends Component{
 						<Input id="phone" s={7} label="Phone"><Icon>phone</Icon></Input>
 						<Input id="email" type="email" label="Email" s={7} />
 						<Input id="password" type="password" label="Password" s={7} />
+						<Input s={7} label="" defaultValue="Customer" disabled />
 					</Row>
 					<Row>
 						<Input name='group1' type='checkbox' value='sub' label='I would like to subscribe to e-mails!' defaultChecked='checked' id="box"/>
