@@ -1,18 +1,72 @@
-import React, { Component } from 'react'
-import { Row, Input} from 'react-materialize'; 
-
+import React, { Component } from 'react';
+import { Row, Input, Icon, Button} from 'react-materialize'; 
+import { connect } from 'react-redux';
+// we need bindActionCreators so that we can correlate an action to the dispatcher
+import { bindActionCreators } from 'redux';
+import AuthAction from '../actions/AuthAction'
 
 class Register extends Component{
+	constructor(){
+		super()
+		this.state = {
+
+		}
+		this.handleSubmit = this.handleSubmit.bind(this)
+	}
+
+	handleSubmit(event){
+		event.preventDefault()
+		const name = document.getElementById('name').value
+		const phone = document.getElementById('phone').value
+		const email = document.getElementById('email').value
+		const password = document.getElementById('password').value
+		this.props.authAction(name, phone, email, password)
+		
+	}
 	render(){
+		console.log(this.props.auth)
 		return(
-			<Row>
-				<Input s={6} label="First Name" />
-				<Input s={6} label="Last Name" />
-				<Input type="password" label="password" s={12} />
-				<Input type="email" label="Email" s={12} />
-			</Row>
+
+			<form onSubmit = {this.handleSubmit}>
+			<h2>Register</h2>
+				<Row >
+					<Row>
+						<Input id="name" s={7} label="Full Name" ><Icon>account_circle</Icon></Input>
+						
+						<Input id="phone" s={7} label="Phone"><Icon>phone</Icon></Input>
+						<Input id="email" type="email" label="Email" s={7} />
+						<Input id="password" type="password" label="Password" s={7} />
+					</Row>
+					<Row>
+						<Input name='group1' type='checkbox' value='sub' label='I would like to subscribe to e-mails!' defaultChecked='checked' id="box"/>
+					</Row>
+					<Row>
+						<Button waves='light'>Register<Icon left>pets</Icon></Button>
+					</Row>
+				</Row>
+			</form>
 		)
 	}
 }
 
-export default Register
+function mapStateToProps(state){
+	// state = RootReducer
+	return{
+		// key = this.props.key will be accessible to this component
+		// value = property of Root Reducer
+		auth: state.auth
+	}
+}
+
+function mapDispatchToProps(dispatch){
+	// dispatch is the thing that takes any action
+	// and sends it out to all the reducers
+	return bindActionCreators({
+		authAction: AuthAction 
+	}, dispatch)
+}
+
+// export default Register
+// Register component needs access to the dispatcher and state
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
+
