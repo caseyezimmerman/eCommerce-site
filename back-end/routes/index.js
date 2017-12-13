@@ -30,22 +30,22 @@ router.post('/register',(req,res,next)=>{
 				})
 			}else{
 				// user is not in database
-				
+				var insertQuery = `INSERT INTO users (name, phone, email, password) VALUES (?,?,?,?);`;
+				connection.query(insertQuery,[name, phone, email, hash],(error)=>{
+					if(error){
+						reject(error)
+					}else{
+						resolve({msg: "success"})
+					}
+				})
+			
 			}
 		})
 	})
 	
 	
-	var thePromise = new Promise((resolve, reject)=>{
-		var insertQuery = `INSERT INTO users (name, phone, email, password) VALUES (?,?,?,?);`;
-		connection.query(insertQuery,[name, phone, email, hash],(error)=>{
-			if(error){
-				reject(error)
-			}else{
-				resolve({msg: "success"})
-			}
-		})
-	})
+	// var thePromise = new Promise((resolve, reject)=>{
+		
 
 })
 
