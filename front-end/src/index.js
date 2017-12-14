@@ -20,7 +20,7 @@ import reduxPromise from 'redux-promise'
 import { Provider } from 'react-redux'
 
 // create the store
-const theStore = applyMiddleware(reduxPromise)(createStore)(rootReducer)
+const theStore = applyMiddleware(reduxPromise)(createStore)(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 // OR DO THIS
 // const middeWare = applyMiddleware(reduxPromise)
 // const storeWithMid = middleWare(createStore)
