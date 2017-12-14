@@ -30,15 +30,42 @@ router.post('/login',(req,res,next)=>{
 			// password is the password they just entered on the form to login
 			// results[0].password is what we have for the current user in the database
 			var checkHash = bcrypt.compareSync(password, results[0].password)
-			if(checkHash){
-
+			var name = results[0].name;
+			if(checkHash === true){
+				// create a new token
+				// update their row in the DB with the token
+				// send sme json backt o react/ajax/axios
+				var newToken = randToken.uid(100)
+				var updateTokenQuery = `UPDATE users SET token = ? WHERE email = ?;`;
+				connection.query(updateTokenQuery,[newToken, email],(error)=>{
+					if(error){
+						throw error;
+					}else{
+						res.json({
+						msg: "loginSuccess",
+						token: newToken,
+						name: name //which we got from customerName when we did an inner join
+						//even though I have name in users table (just following Rob)
+						})
+					}
+				})
+					
+					
+				
 			}else{
 				// passwords do not match 
+				res.json({
+				msg: "wrongPassword"
+				})
 			}
-
+				
+			
 		}
 	})
 })
+			
+	
+
 
 
 router.post('/register',(req,res,next)=>{

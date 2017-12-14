@@ -17,6 +17,21 @@ class Login extends Component{
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
+	componentWillReceiveProps(newProps){
+		if(newProps.auth.msg === 'wrongPassword'){
+			this.setState({
+				error: "Invalid password"
+			})
+			
+		}else if(newProps.auth.msg === "badUser"){
+			this.setState({
+				error: "Invalid email"
+			})
+		}else if(newProps.auth.msg === "loginSuccess"){
+			newProps.history.push('/')
+		}
+	}
+
 	handleSubmit(event){
 		event.preventDefault()
 		console.log('handleSubmit running')
@@ -43,6 +58,7 @@ class Login extends Component{
 
 
 	render(){
+		console.log(this.props.auth)
 		return(
 			<form onSubmit = {this.handleSubmit}>
 
