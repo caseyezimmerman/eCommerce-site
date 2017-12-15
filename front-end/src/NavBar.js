@@ -11,7 +11,7 @@ class NavBar extends Component{
 	}
 
 	componentDidMount(){
-		this.props.getProductLines()
+		this.props.getProductLines() //coming from disptch to props
 	}
 
 	componentWillReveiveProps(newProps){
@@ -38,7 +38,13 @@ class NavBar extends Component{
 		      
 			]
 		}
+
 		console.log(this.props.auth)
+		var shopMenu = this.props.productLines.map((productline,index)=>{
+			var safeLink = encodeURIComponent(productline.productLine)
+			return(<Link key={index} to={`/shop/${safeLink}`}>{productline.productLine}</Link>)
+		})
+		console.log(shopMenu)
 		return(
 			 <nav className="nav-extended">
 			    <div className="nav-wrapper teal lighten-2">
@@ -46,13 +52,27 @@ class NavBar extends Component{
 			      <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 			      	<ul id="nav-mobile" className="hide-on-med-and-down">
 			        	<li><Link to="/">Home</Link></li>
-			        	<li><a href="badges.html"><Link to="/shop">Shop</Link></a></li>
-			        	<li><a href="collapsible.html">About Us</a></li>
+			        	<li className = "dropdown">
+			        		<Link to="/shop">Shop</Link>
+			        		<ul>
+			        			<li className = "dropdown-links">
+			        				{shopMenu}
+			        			</li>
+			        		</ul>
+			        	</li>
+			        	<li><Link to="/shop">About Us</Link></li>
 			        	<li><a href="collapsible.html">Contact Us</a></li>
 			      	</ul>
 			      	<ul className="side-nav" id="mobile-demo">
 			        	<li><Link to="/">Home</Link></li>
-			        	<li><a href="badges.html">Shop</a></li>
+			        	<li className = "dropdown">
+			        		<Link to="/shop">Shop</Link>
+			        		<ul>
+			        			<li className = "dropdown-links">
+			        				{shopMenu}
+			        			</li>
+			        		</ul>
+			        	</li>
 			        	<li><a href="collapsible.html">About Us</a></li>
 			        	<li><a href="collapsible.html">Contact Us</a></li>
 			     	</ul>

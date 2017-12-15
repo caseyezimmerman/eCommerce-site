@@ -10,6 +10,8 @@ import SlickSlider from './components/SlickSlider'
 import Register from './containers/Register'
 import Home from './components/Home'
 import Login from './containers/Login'
+import ProductLines from './containers/ProductLines'
+
 
 
 class App extends Component {
@@ -23,6 +25,7 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
             <Route exact path='/register' component={Register}/>
             <Route exact path='/login' component={Login}/>
+            <Route path='/shop/:productLine' component={ProductLines} />
           </div>
         </div>
       </Router>

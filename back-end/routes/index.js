@@ -137,16 +137,33 @@ router.post('/register',(req,res,next)=>{
 		)
 })
 
-	// var thePromise = new Promise((resolve, reject)=>{
-	// 	var insertQuery = `INSERT INTO users (name, phone, email, password) VALUES (?,?,?,?);`;
-	// 	connection.query(insertQuery,[name, phone, email, password],(error)=>{
-	// 		if(error){
-	// 			reject(error)
-	// 		}else{
-	// 			resolve({msg: "success"})
-	// 		}
-	// 	})
-	// })
+router.get('/productLines/get',(req,res,next)=>{
+	var selectQuery = `SELECT * FROM productlines;`;
+	connection.query(selectQuery, (error,results)=>{
+		if(error){
+			throw error
+		}else{
+			res.json(results)
+		}
+	})
+})
+
+router.get('/productlines/:productline/get',(req,res,next)=>{
+	var pl = req.params.productline
+	var plQuery = `SELECT * FROM productlines
+	INNER JOIN products ON productlines.product = products.productLine
+	WHERE productlines.productLine = ?`
+	connection.query(plQuery,[pl],(error,results)=>{
+		if(error){
+			throw error
+		}else{
+			res.json(results)
+		}
+	})
+})
+
+
+	
 
 
 

@@ -23,4 +23,19 @@ input {
 .error {
   color: red; }
 
+nav ul a {
+  display: inline-block; }
+
+nav.nav-extended .nav-content {
+  position: inherit; }
+
+.dropdown {
+  position: relative; }
+  .dropdown .dropdown-links {
+    display: none; }
+  .dropdown:hover .dropdown-links {
+    display: block; }
+  .dropdown a {
+    display: block; }
+
 /*# sourceMappingURL=styles.css.map */
