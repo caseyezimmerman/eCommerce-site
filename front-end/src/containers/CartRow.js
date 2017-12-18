@@ -3,7 +3,11 @@ import React from 'react'
 function CartRow(props){
 	const product = props.product;
 	return(
-		<h1>{product.productName}</h1>
+		<tr>
+			<td>{product.productName}</td>
+			<td>{product.buyPrice}</td>
+			<td><button className="btn primary">Delete</button></td>
+		</tr>
 	)
 }
 
