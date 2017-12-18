@@ -22,8 +22,8 @@ class NavBar extends Component{
 	}
 
 	componentWillReceiveProps(newProps){
-		console.log(newProps)
-		if(newProps.auth.msg == 'loginSuccess'){
+		// console.log(newProps)
+		if(newProps.auth.msg === 'loginSuccess'){
 			// the user just logged in. go get their cart
 		}
 	}
@@ -32,13 +32,13 @@ class NavBar extends Component{
 		console.log(this.props.cart)
 		if(this.props.auth.name !== undefined){
 			// the user is logged in
-			if(this.props.cart.length > 0){
+			if(this.props.cart.totalItems !== undefined){
 				// there is something in the cart
-				var totalPrice = this.props.cart[0].totalPrice
-				var totalItems = this.props.cart[0].totalItems
+				var totalPrice = this.props.cart.totalPrice
+				var totalItems = this.props.cart.totalItems
 				var cartText = `(${totalItems}) items in your cart | ($${totalPrice})`
 			}else{
-				var cartText = "(0) items in cart | ($0.00)"
+				cartText = "(0) items in cart | ($0.00)"
 			}
 		}
 		if(this.props.auth.name !== undefined){
@@ -51,7 +51,7 @@ class NavBar extends Component{
 				
 			]
 		}else{
-			var rightMenuBar = [
+			rightMenuBar = [
 				
 	     		<li key={0}><Icon>pets</Icon></li>,
 	     		<li key={5} className="right"><button className="btn btn-primary" onClick={this.fakeLogin}>FAKE LOGIN</button></li>,
@@ -72,8 +72,8 @@ class NavBar extends Component{
 		return(
 			 <nav className="nav-extended">
 			    <div className="nav-wrapper teal lighten-2">
-			      <a href="#" className="brand-logo"></a>
-			      <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+			      <a href="" className="brand-logo"></a>
+			      <a href="" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 			      	<ul id="nav-mobile" className="hide-on-med-and-down">
 			        	<li><Link to="/">Home</Link></li>
 			        	<li className = "dropdown">

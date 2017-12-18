@@ -40,10 +40,10 @@ class Login extends Component{
 		console.dir(event.target)
 		var email = event.target[0].value
 		var password = event.target[1].value
-		var formData = {
-			email: email,
-			password: password
-		}
+		// var formData = {
+		// 	email: email,
+		// 	password: password
+		// }
 		console.log(email)
 		console.log(password)
 		// var formData = {

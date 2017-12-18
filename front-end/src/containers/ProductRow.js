@@ -7,7 +7,7 @@ function ProductRow(props){
 		// this user is NOT logged in
 		var button = ""
 	}else{
-		var button = <button 
+		button = <button 
 			className="btn primary" 
 				onClick={()=>{
 					props.addToCart(props.token,product.productCode)
@@ -20,7 +20,7 @@ function ProductRow(props){
 	return(
 		<tr>
 			<td>{product.productLine}</td>
-			<td></td>
+			<td>{product.textDescription}</td>
 			<td></td>
 			<td>{product.buyPrice}</td>
 			<td>{button}</td>

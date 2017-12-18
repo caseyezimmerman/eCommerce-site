@@ -193,7 +193,16 @@ router.post('/updateCart', (req,res,next)=>{
 						if(error){
 							throw error
 						}else{
-							res.json(cartResults)
+							var finalCart = cartResults[0] ///final cart will be an object with total items and totla price
+									// ew dont care about their products array on update
+									// we only care about it on the /cart page
+									// so returning an empty products array is safe
+									
+									finalCart.products = [];
+									finalCart.totalPrice = (finalCart.totalPrice * 100) / 100
+									console.log(finalCart)
+									res.json(finalCart)
+							// res.json(cartResults[0])
 						}
 					})
 				}
@@ -229,7 +238,27 @@ router.post('/getCart',(req,res,next)=>{
 						if(error){
 							throw error
 						}else{
-							res.json(cartResults)
+							// res.json(cartResults)
+							const getCartProducts = `SELECT * FROM cart
+							INNER JOIN products on products.productCode = cart.productCode
+							WHERE uid = ?;`
+							connection.query(getCartProducts,[uid],(error, cartContents)=>{
+								if(error){
+									throw error
+								}else{
+
+									// cartResults comes from the query above
+									var finalCart = cartResults[0] ///final cart will be an object with total items and totla price
+									// ew dont care about their products array on update
+									// we only care about it on the /cart page
+									// so returning an empty products array is safe
+
+									finalCart.products = cartContents;
+									finalCart.totalPrice = (finalCart.totalPrice * 100) / 100
+									console.log(finalCart)
+									res.json(finalCart)
+								}
+							})
 						}
 					})
 		}

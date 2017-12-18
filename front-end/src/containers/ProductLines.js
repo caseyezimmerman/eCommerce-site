@@ -58,7 +58,9 @@ class ProductLines extends Component{
 		if(thisPL.length === 0){
 			var desc = ""
 		}else{
-			var desc = thisPL[0].textDescription
+
+			desc = thisPL[0].textDescription
+			console.log(desc)
 		}
 		var Link = decodeURIComponent(this.props.match.params.productLine)
 		return(
