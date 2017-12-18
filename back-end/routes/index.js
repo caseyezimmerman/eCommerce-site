@@ -150,9 +150,9 @@ router.get('/productLines/get',(req,res,next)=>{
 
 router.get('/productlines/:productline/get',(req,res,next)=>{
 	var pl = req.params.productline
-	var plQuery = `SELECT * FROM productlines
-	INNER JOIN products ON productlines.product = products.productLine
-	WHERE productlines.productLine = ?`
+	var plQuery = `SELECT * FROM productlines 
+	INNER JOIN products ON productlines.productLine = products.productLine 
+	WHERE products.productLine = ?;`
 	connection.query(plQuery,[pl],(error,results)=>{
 		if(error){
 			throw error
@@ -162,6 +162,100 @@ router.get('/productlines/:productline/get',(req,res,next)=>{
 	})
 })
 
+router.post('/updateCart', (req,res,next)=>{
+	var productCode = req.body.productCode
+	var userToken = req.body.userToken
+	// is this even a valid token??
+	var getUidQuery = `SELECT id FROM users WHERE token = ?;`;
+	connection.query(getUidQuery,[userToken],(error,results)=>{
+		if(error){
+			throw error
+		}else if(results.length === 0){
+			// /this token is bad there is no user logged in
+			res.json({
+				msg: 'badToken'
+			})
+		}else{
+			// get usersid for the last query
+			const uid = results[0].id
+			// this is a good token
+			var addToCartQuery = `INSERT INTO cart (uid, productCode) VALUES (?,?);`
+			connection.query(addToCartQuery,[uid,productCode],(error)=>{
+				if(error){
+					throw error
+				}else{
+					// get the sum of tei products and their total
+					const getCartTotals = `SELECT SUM(buyPrice) as totalPrice, count(buyPrice) as totalItems 
+					FROM cart
+					INNER JOIN products ON products.productCode = cart.productCode 
+					WHERE cart.uid = ?;`
+					connection.query(getCartTotals,[uid],(error,cartResults)=>{
+						if(error){
+							throw error
+						}else{
+							res.json(cartResults)
+						}
+					})
+				}
+			})
+		}
+
+		
+		
+	})
+	// res.json(req.body)
+})
+
+router.post('/getCart',(req,res,next)=>{
+	const userToken = req.body.token
+	var getUidQuery = `SELECT id FROM users WHERE token = ?;`;
+	connection.query(getUidQuery,[userToken],(error,results)=>{
+		if(error){
+			throw error
+		}else if(results.length === 0){
+			// /this token is bad there is no user logged in
+			res.json({
+				msg: 'badToken'
+			})
+		}else{
+			// get usersid for the last query
+			const uid = results[0].id
+			// this is a good token
+			const getCartTotals = `SELECT SUM(buyPrice) as totalPrice, count(buyPrice) as totalItems 
+					FROM cart
+					INNER JOIN products ON products.productCode = cart.productCode 
+					WHERE cart.uid = ?;`
+					connection.query(getCartTotals,[uid],(error,cartResults)=>{
+						if(error){
+							throw error
+						}else{
+							res.json(cartResults)
+						}
+					})
+		}
+	})
+		
+})
+
+
+router.post('/fakelogin', (req, res, next)=>{
+	const getFirstUser = `SELECT * from users limit 1;`;
+	connection.query(getFirstUser, (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.json({
+			msg: "loginSuccess",
+			token: results[0].token,
+			name: results[0].name
+		});				
+	})
+
+});
+
+// `SELECT * FROM productlines
+// 	INNER JOIN products ON productlines.productLine = products.productLine
+// 	WHERE productlines.productLine = ?`
 
 	
 
