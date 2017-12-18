@@ -3,8 +3,45 @@ import { bindActionCreators } from 'redux'
 import {connect} from 'react-redux'
 import GetCart from '../actions/GetCart'
 import CartRow from '../containers/CartRow'
-class Cart extends Component{
+import axios from 'axios'
 
+
+class Cart extends Component{
+	constructor(){
+		super()
+		this.makePayment = this.makePayment.bind(this)
+	}
+
+	makePayment() {
+        var handler = window.StripeCheckout.configure({
+            key: 'pk_test_dwzdKdt62kxe7hdiEhLdiGWO',
+            locale: 'auto',
+            token: (token) => {
+                var theData = {
+                    amount: this.props.cart.totalPrice * 100,
+                    stripeToken: token.id,
+                    userToken: this.props.auth.token,
+                }
+                axios({
+                    method: 'POST',
+                    url: `${window.apiHost}/stripe`,
+                    data: theData
+                }).then((response) => {
+                    console.log(response.data);
+                    if(response.data.msg === 'paymentSuccess') {
+                    	this.props.history.push('/thankyou')
+                    }else{
+                    	console.log(response.data.msg)
+                    }
+                });
+            }
+        });
+        handler.open({
+            name: "Pay Now",
+            description: 'Pay Now',
+            amount: this.props.cart.totalPrice * 100
+        })
+    }
 
 	componentDidMount(){
 		if(this.props.auth.token === undefined){
@@ -34,7 +71,17 @@ class Cart extends Component{
 		})
 		return(
 			<div>
-				{cartArray}
+				<h2>Your order total is: ${this.props.cart.totalPrice} - <button className="btn teal darken-1" onClick={this.makePayment}>Checkout</button></h2>
+				<table className="table table-striped">
+					<thead>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Remove</th>
+					</thead>
+					<tbody>
+						{cartArray}
+					</tbody>
+				</table>
 			</div>
 		)
 	}
@@ -45,7 +92,7 @@ class Cart extends Component{
 function mapStateToProps(state){
 	return{
 		auth: state.auth,
-		cart: state.cart
+		cart: state.cart ////redux state that allows us to use cart in here
 	}
 }
 
