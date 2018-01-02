@@ -10,12 +10,12 @@ import GetCart from './actions/GetCart'
 class NavBar extends Component{
 	constructor(){
 		super();
-		this.fakeLogin = this.fakeLogin.bind(this)
+		// this.fakeLogin = this.fakeLogin.bind(this)
 	}
 
-	fakeLogin(){
-		this.props.loginAction('fake')
-	}
+	// fakeLogin(){
+	// 	this.props.loginAction('fake')
+	// }
 
 	componentDidMount(){
 		this.props.getProductLines() //coming from disptch to props
@@ -54,7 +54,7 @@ class NavBar extends Component{
 			rightMenuBar = [
 				
 	     		<li key={0}><Icon>pets</Icon></li>,
-	     		<li key={5} className="right"><button className="btn btn-primary" onClick={this.fakeLogin}>FAKE LOGIN</button></li>,
+	     		// <li key={5} className="right"><button className="btn btn-primary" onClick={this.fakeLogin}>FAKE LOGIN</button></li>,
 	     		<li key={1} className="right">{cartText}</li>,
 	      		<li key={2} className="right log"><Link to="/login">Sign in</Link></li>,
 	      		<li key={3} className="right log">|</li>,
